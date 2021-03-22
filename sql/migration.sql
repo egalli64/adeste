@@ -6,7 +6,40 @@
 
 drop table if exists trainees;
 drop table if exists courses;
+drop table if exists users;
+drop table if exists levels;
 
+-- 
+create table levels(
+	level_id serial primary key,
+	name varchar(10) unique not null
+);
+
+start transaction;
+
+insert into levels (name) values ('admin');
+insert into levels (name) values ('plain');
+
+commit;
+
+-- FK on LEVELS
+create table users(
+	user_id serial primary key,
+	name varchar(20) unique not null,
+	password varchar(20) not null,
+	level_id integer not null,
+	expire date,
+
+	constraint users_level_fk foreign key(level_id) references levels(level_id)
+);
+
+start transaction;
+
+insert into users (name, password, level_id) values ('admin', 'password', 1);
+
+commit;
+
+--
 create table courses(
 	course_id serial primary key,
 	name varchar(40) not null,
@@ -22,6 +55,7 @@ insert into courses (name, first, last) values ('C TMS 5457 Accenture', '2010-11
 
 commit;
 
+-- FK on COURSES
 create table trainees(
 	trainee_id serial primary key,
 	name varchar(15) not null,
