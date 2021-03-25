@@ -24,17 +24,20 @@ public class Access {
     public String login(@RequestParam String name, @RequestParam String password, Model model, HttpSession session) {
         log.traceEntry("{}, {}", name, password);
 
-        svc.getUser(name, password).ifPresent(user -> {
+        svc.getUser(name, password).ifPresentOrElse(user -> {
             session.setAttribute("user", user);
             model.addAttribute("user", user);
+        }, () -> {
+            session.setAttribute("user", null);
         });
         return "home";
     }
 
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(HttpSession session) {
         log.traceEntry();
 
+        session.invalidate();
         return "home";
     }
 }
