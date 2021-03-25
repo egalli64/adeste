@@ -12,8 +12,8 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Adeste</a>
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:classappend="${user} ? 'disabled'"
-                    href="/login.html">Login</a></li>
+                <li class="nav-item"><a class="nav-link" th:if="${user}" th:text="${user.name}" href="/user">Details</a></li>
+                <li class="nav-item"><a class="nav-link" th:unless="${user}" href="/login.html">Login</a></li>
                 <li class="nav-item"><a class="nav-link" th:classappend="not ${user} ? 'disabled'"
                     href="/logout">Logout</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register.html">Register</a></li>
