@@ -21,6 +21,6 @@ public class Home {
         log.traceEntry();
         repo.findFirstByOrderByLastDesc().ifPresent(course -> model.addAttribute("course", course.getName()));
 
-        return "/home";
+        return "home";
     }
 }
