@@ -26,7 +26,6 @@ public class Access {
 
         svc.getUser(name, password).ifPresentOrElse(user -> {
             session.setAttribute("user", user);
-            model.addAttribute("user", user);
         }, () -> {
             session.setAttribute("user", null);
         });
