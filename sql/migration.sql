@@ -22,23 +22,6 @@ insert into u_roles (name) values ('plain');
 
 commit;
 
--- FK on LEVELS
-create table users(
-	user_id serial primary key,
-	name varchar(20) unique not null,
-	password varchar(20) not null,
-	role_id integer not null,
-	expire date,
-
-	constraint users_role_fk foreign key(role_id) references u_roles(role_id)
-);
-
-start transaction;
-
-insert into users (name, password, role_id) values ('admin', 'password', 1);
-
-commit;
-
 --
 create table courses(
 	course_id serial primary key,
@@ -55,7 +38,7 @@ insert into courses (name, first, last) values ('C TMS 5457 Accenture', '2010-11
 
 commit;
 
--- FK on COURSES
+-- FK to COURSES mTo1
 create table trainees(
 	trainee_id serial primary key,
 	name varchar(15) not null,
@@ -93,5 +76,24 @@ insert into trainees (name, course_id) values ('Raffaele', 2);
 insert into trainees (name, course_id) values ('Roberta', 2);
 insert into trainees (name, course_id) values ('Vittorio', 2);
 insert into trainees (name, course_id) values ('Yuri', 2);
+
+commit;
+
+-- FK to U_ROLES mTo1, TRAINEES 1To1
+create table users(
+	user_id serial primary key,
+	name varchar(20) unique not null,
+	password varchar(20) not null,
+	role_id integer not null,
+	trainee_id integer unique,
+	expire date,
+
+	constraint users_role_fk foreign key(role_id) references u_roles(role_id),
+	constraint users_trainee_fk foreign key(trainee_id) references trainees(trainee_id)
+);
+
+start transaction;
+
+insert into users (name, password, role_id) values ('admin', 'password', 1);
 
 commit;
