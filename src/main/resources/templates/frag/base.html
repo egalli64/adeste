@@ -17,7 +17,7 @@
                 <li class="nav-item"><a class="nav-link" th:unless="${session.user}" href="/login.html">Login</a></li>
                 <li class="nav-item"><a class="nav-link"
                     th:classappend="not ${session.user} ? 'disabled'" href="/logout">Logout</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register.html">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" th:if="${session.user ne null and session.user.role eq 1}">Register</a></li>
             </ul>
         </div>
     </nav>

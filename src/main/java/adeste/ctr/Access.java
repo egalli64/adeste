@@ -22,7 +22,7 @@ public class Access {
 
     @PostMapping("/login")
     public String login(@RequestParam String name, @RequestParam String password, Model model, HttpSession session) {
-        log.traceEntry("{}, {}", name, password);
+        log.traceEntry("{}, {}", name, password.length());
 
         svc.getUser(name, password).ifPresentOrElse(user -> {
             session.setAttribute("user", user);
@@ -37,6 +37,21 @@ public class Access {
         log.traceEntry();
 
         session.invalidate();
+        return "home";
+    }
+
+    @GetMapping("/register")
+    public String register(HttpSession session) {
+        log.traceEntry();
+
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String doRegister(@RequestParam String name, @RequestParam String password, Model model,
+            HttpSession session) {
+        log.traceEntry();
+
         return "home";
     }
 }

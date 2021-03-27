@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>New User</title>
@@ -9,11 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Adeste</a>
-        </div>
-    </nav>
+    <div th:insert="frag/base :: navbar"></div>
 
     <div class="container-fluid">
         <h1>Register</h1>
