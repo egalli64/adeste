@@ -1,5 +1,7 @@
 package adeste.ctr;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,20 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import adeste.dao.User;
 import adeste.svc.UserSvc;
 
 @Controller
 public class Access {
-    private static Logger log = LogManager.getLogger(Access.class);
+    private static final Logger log = LogManager.getLogger(Access.class);
 
     @Autowired
-    UserSvc svc;
+    UserSvc userSvc;
 
     @PostMapping("/login")
-    public String login(@RequestParam String name, @RequestParam String password, Model model, HttpSession session) {
+    public String login(@RequestParam String name, @RequestParam String password, HttpSession session) {
         log.traceEntry("{}, {}", name, password.length());
 
-        svc.getUser(name, password).ifPresentOrElse(user -> {
+        userSvc.get(name, password).ifPresentOrElse(user -> {
             session.setAttribute("user", user);
         }, () -> {
             session.setAttribute("user", null);
@@ -48,10 +51,16 @@ public class Access {
     }
 
     @PostMapping("/register")
-    public String doRegister(@RequestParam String name, @RequestParam String password, Model model,
-            HttpSession session) {
-        log.traceEntry();
+    public String doRegister(@RequestParam String name, @RequestParam String password,
+            @RequestParam Optional<String> admin, Model model) {
+        log.traceEntry("{}, {}, {}", name, password.length(), admin);
 
-        return "home";
+        if (userSvc.create(name, password, admin)) {
+            model.addAttribute("name", name);
+        } else {
+            model.addAttribute("user", new User(name, password, admin.isPresent() ? 1 : 2));
+        }
+
+        return "register";
     }
 }
