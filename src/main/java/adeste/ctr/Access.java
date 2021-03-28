@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +13,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import adeste.dao.User;
+import adeste.svc.CourseSvc;
 import adeste.svc.UserSvc;
 
 @Controller
 public class Access {
     private static final Logger log = LogManager.getLogger(Access.class);
 
-    @Autowired
-    UserSvc userSvc;
+    private UserSvc userSvc;
+    private CourseSvc courseSvc;
+
+    public Access(UserSvc userSvc, CourseSvc courseSvc) {
+        this.userSvc = userSvc;
+        this.courseSvc = courseSvc;
+    }
+
+    @GetMapping("/")
+    public String home(Model model) {
+        log.traceEntry();
+
+        courseSvc.getLatest().ifPresent(course -> model.addAttribute("course", course.getName()));
+        return "home";
+    }
 
     @PostMapping("/login")
     public String login(@RequestParam String name, @RequestParam String password, HttpSession session) {
@@ -36,10 +49,11 @@ public class Access {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(Model model, HttpSession session) {
         log.traceEntry();
 
         session.invalidate();
+        courseSvc.getLatest().ifPresent(course -> model.addAttribute("course", course.getName()));
         return "home";
     }
 
