@@ -5,7 +5,7 @@
 <link rel="icon" href="data:;base64,=">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
     <nav class="navbar navbar-expand" th:fragment="navbar">
@@ -17,7 +17,8 @@
                 <li class="nav-item"><a class="nav-link" th:unless="${session.user}" href="/login.html">Login</a></li>
                 <li class="nav-item"><a class="nav-link"
                     th:classappend="not ${session.user} ? 'disabled'" href="/logout">Logout</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register" th:if="${session.user ne null and session.user.role eq 1}">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register"
+                    th:if="${session.user ne null and session.user.role eq 1}">Register</a></li>
             </ul>
         </div>
     </nav>
