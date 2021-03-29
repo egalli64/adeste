@@ -77,4 +77,11 @@ public class Access {
 
         return "register";
     }
+
+    @GetMapping("/user")
+    public String user() {
+        log.traceEntry();
+
+        return "user";
+    }
 }
