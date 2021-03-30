@@ -12,24 +12,20 @@
     <div th:insert="frag/base :: navbar"></div>
 
     <div class="container-fluid">
-        <h1>Edit user</h1>
+        <h1>
+            Edit <span th:text="${session.user.role eq 1 ? 'administrator' : 'user'}">user</span>
+        </h1>
 
-        <div th:if="${name}" th:text="'User ' + ${name} + ' edited'"></div>
+        <div th:text="${message}"></div>
 
         <form action="user" method="post">
             <div>
-                <label class="form-label">User name <input class="form-control" name="name"
-                        th:value="${session.user.name}" required></label>
+                <label class="form-label">Name <input class="form-control" name="name"
+                        th:value="${session.user.name}" th:disabled="${session.user.role ne 1}" required></label>
             </div>
             <div>
                 <label class="form-label">Password <input type="password" class="form-control"
                         name="password" th:value="${session.user.password}" required>
-                </label>
-            </div>
-            <div class="form-check form-switch">
-                <label class="form-check-label">Administrator <input type="checkbox"
-                        class="form-check-input" value="admin" readonly
-                        th:checked="${session.user ne null and session.user.role eq 1}">
                 </label>
             </div>
             <button class="btn btn-primary">Submit</button>

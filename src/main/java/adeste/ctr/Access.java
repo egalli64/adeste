@@ -58,7 +58,7 @@ public class Access {
     }
 
     @GetMapping("/register")
-    public String register(HttpSession session) {
+    public String register() {
         log.traceEntry();
 
         return "register";
@@ -79,9 +79,25 @@ public class Access {
     }
 
     @GetMapping("/user")
-    public String user() {
+    public String getCurrentUser() {
         log.traceEntry();
 
         return "user";
+    }
+
+    @PostMapping("/user")
+    public String postCurrentUser(@RequestParam Optional<String> name, @RequestParam String password, Model model,
+            HttpSession session) {
+        log.traceEntry("{}, {}", name.isPresent(), password.length());
+
+        Optional<User> edited = userSvc.edit((User) session.getAttribute("user"), name, password);
+
+        if (edited.isPresent()) {
+            session.setAttribute("user", edited.get());
+            return "home";
+        } else {
+            model.addAttribute("message", "Editing rejected");
+            return "user";
+        }
     }
 }
