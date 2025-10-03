@@ -4,5 +4,5 @@ Based on the licensing-service described in <https://github.com/ihuaylupo/mannin
 
 - Maven based Spring Boot application, see xml.pom for details
 - A little fake licensing service
+- Basic use of i18n 
 - Basic use of Spring Boot Actuator for monitoring
-
