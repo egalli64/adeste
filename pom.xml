@@ -6,39 +6,28 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>3.5.6</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
-    <groupId>egalli64</groupId>
-    <artifactId>adeste</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>adeste</name>
+
+    <groupId>com.example</groupId>
+    <artifactId>license-service</artifactId>
+    <version>5.10.0</version>
+    <name>License Service</name>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>25</java.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
 
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
 
@@ -57,5 +46,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
