@@ -7,9 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @Disabled
 class AdesteTests {
-
     @Test
     void contextLoads() {
     }
-
 }

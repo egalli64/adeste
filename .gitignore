@@ -3,10 +3,7 @@ target/
 .classpath
 .project
 .settings/
-
-# Maven
-mvn*
-.mvn/
+bin/
 
 # vscode
 .vscode
