@@ -1,0 +1,8 @@
+# docker build -f Dockerfile.simple -t license-service:5.10.0 .
+# docker run -d -p 8080:8080 license-service:5.10.0
+
+FROM openjdk:25-jdk-slim
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} /app/app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app/app.jar"]
