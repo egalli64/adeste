@@ -1,3 +1,4 @@
+# apps API group (for Deployment, ...) version 1
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,7 +14,7 @@ spec:
         app: license-service
     spec:
       containers:
-      - name: license-service
+      - name: svc
         image: license-service:5.10.1
         imagePullPolicy: Never
         ports:
